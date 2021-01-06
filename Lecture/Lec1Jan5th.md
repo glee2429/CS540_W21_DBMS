@@ -27,6 +27,7 @@ Goal: Learn to express data constraints and organize the data to evaluate them e
 Problem: large data stored on *very slow* secondary storage, as the reads/writes on hard disks are much slower than RAM.
 
 Goal 1: Learn to tune the data system and pick proper indexes and structures to run queries fast.
+
 Goal 2: Learn to develop file structures and indexes for other data-driven systems
 
 - How to make the data systems that efficiently store data
@@ -35,6 +36,7 @@ Goal 2: Learn to develop file structures and indexes for other data-driven syste
 
 #### 4) Query Processing & Optimization
 Goal 1: Learn to check whether the data system picks the right query processing methods
+
 Goal 2: Learn to develop data processing algorithms for other data-driven systems
 
 - How to write algorithms to run SQL queries fast on large data with large files and tables
@@ -52,9 +54,16 @@ Goal: Learn to use the right locking protocol to keep data consistent
 The system may crash/restart during data processing due to power outage, which can cause inconsistent data after restart.
 
 Goal 1: Learn to set the right failure recovery based on application's needs
+
 Goal 2: Develop failure recovery for data-centric applications outside data systems -- how to deal with crash when processing a large user activity log file?
 
 - How to develop support methods for consistent recovery from failures
 - How to avoid slowing down query processing due to additional backups
 
 #### 6) Learning over Relational Data
+Problem: challenges with learning new patterns over *large relational data*
+
+Goal: Learn algorithms to learn over relational data
+
+- How to add learning abilities/statistical inference algorithms to an existing data system?
+- How to develop algorithms to learn patterns over large relational data efficiently and effectively
