@@ -50,3 +50,41 @@ WHERE cname = 'Cost' AND price = (SELECT price FROM Sells WHERE sname = 'Culture
 ```
 First, we need to find the price Culture charges for Kenya beans. (subquery)
 Then, pull the data with the matching price from the first step. 
+
+##### Helpers for Subqueries -- ALL, ANY, IN
+###### ALL & ANY
+In many cases, the result of your subqueries is a set. Thus, we can use ALL or ANY drawing from the set. 
+
+Given Sells(sname, cname, price), find the coffee shops that serve 'Kenya' for a cheaper price than the price that all coffee shops charge for 'Costa'.
+
+Let's break it down! 
+1. First, the subquery is to find out the *set of all prices for 'Costa'* and name it 'CostaPrice'
+2. Then, use the set drawn from 1 and compare the price drawn with all values. 
+
+```
+First part (subquery): SELECT price FROM Sells WHERE cname = 'Costa'
+
+Main part (main query): SELECT sname FROM Sells WHERE cname = 'Kenya' AND price < ALL (subquery)
+
+Here, ALL is necessary. 
+```
+* What if we use ANY instead of ALL? 
+It returns the coffee shops that serve 'Kenya' for a cheaper price than the price that at least one coffee shop charges for Costa. 
+
+###### IN 
+IN is used for checking the membership. 
+
+Given Coffee(cname, producer) and Likes(dname, cname), find the producers of the coffee brands John likes. 
+
+Let's break it down!
+1. First, find the cname 'John' likes.
+2. Then, find the producer of the coffee brand that falls into the set 1. 
+
+```
+First part (subquery): SELECT cname FROM Likes WHERE dname = 'John'
+
+Main part (main query): SELECT producer FROM Coffee WHERE cname IN (subquery)
+```
+
+
+
