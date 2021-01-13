@@ -100,5 +100,47 @@ First part (subquery): SELECT * FROM Coffee WHERE producer = b1.producer AND cna
 Main part (main query): SELECT cname FROM Coffee c1 WHERE NOT EXISTS (subquery);
 ```
 
+##### DISTINCT 
+Bags (Duplicates OK) vs. Set (No Duplicates)
+e.g., {a, a, b, b, b} is okay!
+
+Generally, the result of SQL queries are bags with duplicate values. 
+
+If you'd like to remove the duplicate values, use DISTINCT. 
+
+#### Set Operations with the Same Schema for Compatibility
+1. R UNION S
+2. R INTERSECT S -- AND 
+```
+(SELECT * FROM Likes) -- the coffee drinkers likes the brand 
+INTERSECT 
+(SELECT dname, cname FROM Frequents, Sells WHERE Frequents.sname = Sells.sname) -- the drinker frequenst at the coffeeshop that serves the brand
+```
+The schema of both queries should be compatible. Both queries have the schema of dname, cname
+
+3. R EXCEPT S
+
+* Caveats: since the set operations remove duplicate values (because they involves set), if you'd like dupliaces, use ALL. 
+
+#### Aggregation Functions 
+Aggregate functions map a set of value into *a single value*. Generally, Aggregate functions do not consider NULL values. 
+1. COUNT
+2. SUM
+3. AVG
+4. MIN
+5. MAX
+```
+SELECT COUNT(price) -- does not consider entries with price = NULL, so if you'd like to COUNT the number of entry, use COUNT(*) or COUNT(cname) -- with the primary key
+FROM Sells
+WHERE sname = 'Culture'
+```
+
+#### Aggregate Functions Over Groups 
+```
+SELECT cname, MIN(price) AS minprice
+FROM Sells
+GROUP BY cname;
+```
+GROUP BY usually comes last, which categorizes the price by the specified column. 
 
 
