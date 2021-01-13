@@ -85,6 +85,20 @@ First part (subquery): SELECT cname FROM Likes WHERE dname = 'John'
 
 Main part (main query): SELECT producer FROM Coffee WHERE cname IN (subquery)
 ```
+##### EXISTS or NOT EXISTS
+Check whether the result of the subquery is empty or not.
+
+Given Coffee(cname, producer), find the coffee brands that are the only brandmade by their producers. 
+
+Let's break it down!
+1. First, when we have ONLY, it's easier to answer the negation and get the negation of the negation. Find producers that produce more than a single brand of coffee. 
+2. Then, negate 1 from the whole set. 
+
+```
+First part (subquery): SELECT * FROM Coffee WHERE producer = b1.producer AND cname <> c1.cname
+
+Main part (main query): SELECT cname FROM Coffee c1 WHERE NOT EXISTS (subquery);
+```
 
 
 
