@@ -14,3 +14,12 @@ The above line will filter the corresponding column with regular expressions. Ho
 'Null' is not like any other value; Potentially the admin didn't enter the data or know the value. 
 
 Null is used to represent the lack of information of the corresponding attribute. 
+
+To pull the data with NULL value, you have to specify it as 
+``` 
+SELECT * 
+FROM Sells
+WHERE price IS NULL
+```
+
+In most cases, NULL causes problems with databases. In other words, NULL is considered a bug. 
