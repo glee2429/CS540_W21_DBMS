@@ -39,7 +39,7 @@ WHERE Frequents.sname = 'Culture' AND Frequents.dname = Likes.dname; -- This is 
 - Outer join: 
 a. Left(right) outer join keeps all tuples from the left(right) relation. Unmatching ones will be filled with null.  
 
-#### Subqueries 
+#### Subqueries / Nested Queries
 For specifying a conditon in WHERE or FROM clauses, we can use a subquery.
 
 Given Sells(sname, cname, price), find the coffee shops that service Costa for the same price Culture charges for Kenya.
