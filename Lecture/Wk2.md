@@ -51,8 +51,8 @@ WHERE cname = 'Cost' AND price = (SELECT price FROM Sells WHERE sname = 'Culture
 First, we need to find the price Culture charges for Kenya beans. (subquery)
 Then, pull the data with the matching price from the first step. 
 
-##### Helpers for Subqueries -- ALL, ANY, IN
-###### ALL & ANY
+#### Helpers for Subqueries -- ALL, ANY, IN
+##### ALL & ANY
 In many cases, the result of your subqueries is a set. Thus, we can use ALL or ANY drawing from the set. 
 
 Given Sells(sname, cname, price), find the coffee shops that serve 'Kenya' for a cheaper price than the price that all coffee shops charge for 'Costa'.
@@ -71,7 +71,7 @@ Here, ALL is necessary.
 * What if we use ANY instead of ALL? 
 It returns the coffee shops that serve 'Kenya' for a cheaper price than the price that at least one coffee shop charges for Costa. 
 
-###### IN 
+##### IN 
 IN is used for checking the membership. 
 
 Given Coffee(cname, producer) and Likes(dname, cname), find the producers of the coffee brands John likes. 
