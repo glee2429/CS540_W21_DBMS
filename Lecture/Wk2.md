@@ -166,7 +166,7 @@ HAVING (MAX(price)<11) OR (sname='Red Lion')
 
 
 ___________________________________________________________
-SQL PRACTICE 
+### SQL PRACTICE (1/14/2021)
 Given two tables, Out(game, outcome) and Bets(who, outcome, game, amt),
 
 1. List the completed games that nobody bet on. 
@@ -190,10 +190,10 @@ WHERE amt >= ALL(SELECT amt FROM Bets)
 (SELECT game FROM Bets) 
 WHERE game 
 NOT IN (SELECT B1.game FROM Bets B1, Bets B2 WHERE (B1.game = B2.game) AND (B1.outcome <> B2.outcome))
+```
 --> Out of every game, eliminate the games that people don't agree on
 
-#### Negation of Negation:
-##### Negate the original stuff you're looking for, and then negate the result.
+#### Negation of Negation: negate the original stuff you're looking for, and then negate the result.
 It's easier to compute the negation of what you're looking for, and then negate it. 
 
 4. The number of people betting on OSU to win and the number betting on OSU to lose. 
