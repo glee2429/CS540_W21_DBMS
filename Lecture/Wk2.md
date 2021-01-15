@@ -147,3 +147,19 @@ GROUP BY usually comes last, which categorizes the price by the specified column
 Never put Aggregation functions in WHERE
 - Instead, you can used HAVING, which is similiar to WHERE but can be used with aggregate functions
 - HAVING comes after GROUP BY
+##### Caveats: only the attributes used in GROUP BY can be used in HAVING 
+```sql
+SELECT cname, Min(price)
+FROM Sells
+GROUP BY cname 
+HAVING (MAX(price)<11) OR (cname='Kenya')
+```
+--> In this case, the attributes used in GROUP BY include HAVING clause attribute, so it's acceptable. 
+On the other hand, when we use an attribute not mentioned in GROUP BY, it will cause an error. 
+```sql
+SELECT cname, Min(price)
+FROM Sells
+GROUP BY cname 
+HAVING (MAX(price)<11) OR (sname='Red Lion')
+```
+--> This is not acceptable, since there can be numerous sname for each cname group.
