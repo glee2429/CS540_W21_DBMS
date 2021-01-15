@@ -143,4 +143,6 @@ GROUP BY cname;
 ```
 GROUP BY usually comes last, which categorizes the price by the specified column. 
 
-
+#### Aggregation Function CANNOT be used in WHERE clause
+Never put Aggregation functions in WHERE
+- Instead, you can used HAVING, which is similiar to WHERE but can be used with aggregate functions
