@@ -5,7 +5,7 @@
 - each element in a relational algebra / datalog should be referenced at least once to be safe. 
 #### SQL 
 - WHERE Clause & LIKE Operator: 
-```
+```sql
 WHERE dname like 'T%' -- this will return dname starting with T
 ```
 The above line will filter the corresponding column with regular expressions. However, this operation is quite slow. 
@@ -16,7 +16,7 @@ The above line will filter the corresponding column with regular expressions. Ho
 Null is used to represent the lack of information of the corresponding attribute. 
 
 To pull the data with NULL value, you have to specify it as 
-``` 
+```sql
 SELECT * 
 FROM Sells
 WHERE price IS NULL
@@ -27,7 +27,7 @@ In most cases, NULL causes problems with databases. In other words, NULL is cons
 ### Multi-relation Query: JOIN 
 ##### Question: find the coffee brands liked by at least one person who frequents 'Culture'
 Given relations Likes(dname, cname), Frequents(dname, sname), juxtaposing both relations in FROM iff Frequent.dname = Likes.dname. 
-```
+```sql
 SELECT cname
 FROM Likes, Frequents
 WHERE Frequents.sname = 'Culture' AND Frequents.dname = Likes.dname; -- This is EquiJoin as well as natural join since the condition is met on all common field, which is dname.
@@ -43,7 +43,7 @@ a. Left(right) outer join keeps all tuples from the left(right) relation. Unmatc
 For specifying a conditon in WHERE or FROM clauses, we can use a subquery.
 
 Given Sells(sname, cname, price), find the coffee shops that service Costa for the same price Culture charges for Kenya.
-```
+```sql
 SELECT sname
 FROM Sells
 WHERE cname = 'Cost' AND price = (SELECT price FROM Sells WHERE sname = 'Culture' AND cname = 'Kenya');
@@ -94,7 +94,7 @@ Let's break it down!
 1. First, when we have ONLY, it's easier to answer the negation and get the negation of the negation. Find producers that produce more than a single brand of coffee. 
 2. Then, negate 1 from the whole set. 
 
-```
+```sql
 First part (subquery): SELECT * FROM Coffee WHERE producer = b1.producer AND cname <> c1.cname
 
 Main part (main query): SELECT cname FROM Coffee c1 WHERE NOT EXISTS (subquery);
@@ -163,3 +163,66 @@ GROUP BY cname
 HAVING (MAX(price)<11) OR (sname='Red Lion')
 ```
 --> This is not acceptable, since there can be numerous sname for each cname group.
+
+
+___________________________________________________________
+SQL PRACTICE 
+Given two tables, Out(game, outcome) and Bets(who, outcome, game, amt),
+
+1. List the completed games that nobody bet on. 
+
+```sql
+SELECT Game 
+FROM Out
+WHERE Game NOT IN (SELECT Game FROM Bets)
+```
+
+2. Who bet the most money on a single game? 
+```sql
+SELECT who, amt 
+FROM Bets
+WHERE amt >= ALL(SELECT amt FROM Bets)
+```
+--> Compare the selected amount with others' amt using a subquery 
+
+3. List the games that all bettors agree on.
+```sql
+(SELECT game FROM Bets) 
+WHERE game 
+NOT IN (SELECT B1.game FROM Bets B1, Bets B2 WHERE (B1.game = B2.game) AND (B1.outcome <> B2.outcome))
+--> Out of every game, eliminate the games that people don't agree on
+
+#### Negation of Negation:
+##### Negate the original stuff you're looking for, and then negate the result.
+It's easier to compute the negation of what you're looking for, and then negate it. 
+
+4. The number of people betting on OSU to win and the number betting on OSU to lose. 
+```sql
+SELECT game, outcome, Count(who)
+FROM Bets 
+GROUP BY game, outcome
+```
+--> If you look at the result, you can see aggregate functions applied to game and outcome. 
+--> (game, outcome) case for each
+--> WHen there's 'for each game' statement, group the attribute!
+
+5. Find the people who have made two or more bets on OSU to lose. 
+--> This suggests the use of aggregate functions. We would like to group by 'people'
+```sql
+SELECT who
+FROM Bets 
+WHERE outcome = 'L' 
+GROUP BY who 
+HAVING COUNT(outcome) >= 2;
+```
+##### General rule of thumb: try to minimize the number of attributes used in GROUP BY 
+
+6. Who bet the most money overall? 
+--> This signals the grouping by person
+--> The sum of money should be calculuated/compared per person
+```sql
+SELECT who, Sum(amt) 
+FROM Bets 
+GROUP BY who
+HAVING SUM(amt) >= ALL (SELECT SUM(amt) FROM Bets GROUP BY who)
+```
