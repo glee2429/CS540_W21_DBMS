@@ -226,3 +226,11 @@ FROM Bets
 GROUP BY who
 HAVING SUM(amt) >= ALL (SELECT SUM(amt) FROM Bets GROUP BY who)
 ```
+7. Who has bet on every game? 
+```sql
+create view AllGames as 
+(select game from Out) union (select game from Bets)
+
+select who from Bets group by who 
+having count (distinct game) = (select count(distinct game) from AllGames)
+```
