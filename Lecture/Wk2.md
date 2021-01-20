@@ -235,3 +235,17 @@ select who from Bets group by who
 having count (distinct game) = (select count(distinct game) from AllGames)
 ```
 When you're counting all games, then you need to get a **union** of Out and Bets. Also, since group by was used, **having** is used instead of where clause.  
+
+##### Create view: a simple way to write a modular subquery -- mainly as a temporary storage
+
+```sql
+create view AllGames as 
+(select game from Out) union (select game from Bets)
+```
+Here, the view is used to store all games that took place. 
+
+```sql
+select who from Bets group by who 
+having count (distinct game) = (select count(distinct game) from AllGames)
+```
+Given the view, we can select the person whose bet was on every single game shown in the view we created to keep track of every single game. 
