@@ -234,3 +234,4 @@ create view AllGames as
 select who from Bets group by who 
 having count (distinct game) = (select count(distinct game) from AllGames)
 ```
+When you're counting all games, then you need to get a **union** of Out and Bets. Also, since group by was used, **having** is used instead of where clause.  
