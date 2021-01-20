@@ -24,8 +24,8 @@ q2(x) :- R(x,y), R(y,x).
 - h leaves the constants in q2 intact. 
 
 ##### Example
-q1(x) :- R(x, y), R(y, z), R(z, w). 
-q2(x) :- R(x, y), R(y, z). 
+* q1(x) :- R(x, y), R(y, z), R(z, w). 
+* q2(x) :- R(x, y), R(y, z). 
 
 We treat head variables,'x', as constants so that the same in q1 and q2. 
 h: q2->q1 : h(y)=y, h(z)=z.
@@ -56,12 +56,12 @@ There is no homomorphism: since we can't map x to z (x appears in the head).
 q1(x) :- R(x, y), R(y, y).
 q2(x) :- R(x, y), R(y, z), R(z, t).
 ```
-There exists a homomorphism that h: q2->q1 : h(y)=y, h(z)=y, h(t)=y so that q1 is a subset of q2.
+There exists a homomorphism such that h: q2->q1 : h(y)=y, h(z)=y, h(t)=y so that q1 is a subset of q2.
 
 You have to cover every variable in q2. Don't miss out t!
 
 ### Query Minimization 
-A conjunctive query q is minial if for every other conjunctive query q', if q' is equivalent to q (which means it maintains the same meaning) and q1 has at least as many atoms as q, then q' uses fewer JOINs and faster than q. 
+A conjunctive query q is minial if for every other conjunctive query q', if q' is equivalent to q (which means it maintains the same meaning) and q' has at least as many atoms as q, then q' uses fewer JOINs and faster than q. 
 
 ##### Example
 q1(x) :- R(x, z), R(x, z).
