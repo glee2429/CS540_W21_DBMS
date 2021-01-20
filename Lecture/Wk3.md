@@ -33,28 +33,6 @@ h: q2->q1 : h(y)=y, h(z)=z.
 #### Homomorphism Theorem 
 Given conjunctive queries q1 and q2, we have q1 is a subset of q2 if and only if there exists a homomorphism h: q2 -> q1. 
 
-### Query Minimization 
-A conjunctive query q is minial if for every other conjunctive query q', if q' is equivalent to q (which means it maintains the same meaning) and q1 has at least as many atoms as q, then q' uses fewer JOINs and faster than q. 
-
-##### Example
-q1(x) :- R(x, z), R(x, z).
-
-q2(x) :- R(x, z). 
-
-#### How to minimize a query? (faster, shorter, but with the same result)
-1. Remove an atom from q. Let's call this a new query q'.
-2. Since we just dropped an atom, q is a subset of q'.
-3. Check if q' is a subset of q (see if there's a homomorphism). if then, remove the atom permanently. 
-
-##### Example
-q1(x) :- R(x, z), R(z, t), R(x, w). 
-
-q2(x) :- R(x, z), R(z, t). 
-
-First, drop the last atom. Then q1 wil become R(x, z), R(z, t). 
-Then, we can check q1' has a homomorphism with q2. 
-Finally, see if q1' and q2 are equivalent. 
-
 ##### Example 
 ```
 q1(x) :- R(x, y), R(y, 'Joe'). 
@@ -82,6 +60,27 @@ There exists a homomorphism that h: q2->q1 : h(y)=y, h(z)=y, h(t)=y so that q1 i
 
 You have to cover every variable in q2. Don't miss out t!
 
+### Query Minimization 
+A conjunctive query q is minial if for every other conjunctive query q', if q' is equivalent to q (which means it maintains the same meaning) and q1 has at least as many atoms as q, then q' uses fewer JOINs and faster than q. 
+
+##### Example
+q1(x) :- R(x, z), R(x, z).
+
+q2(x) :- R(x, z). 
+
+#### How to minimize a query? (faster, shorter, but with the same result)
+1. Remove an atom from q. Let's call this a new query q'.
+2. Since we just dropped an atom, q is a subset of q'.
+3. Check if q' is a subset of q (see if there's a homomorphism). if then, remove the atom permanently. 
+
+##### Example
+q1(x) :- R(x, z), R(z, t), R(x, w). 
+
+q2(x) :- R(x, z), R(z, t). 
+
+First, drop the last atom. Then q1 wil become R(x, z), R(z, t). 
+Then, we can check q1' has a homomorphism with q2. 
+Finally, see if q1' and q2 are equivalent. 
 
 
 
