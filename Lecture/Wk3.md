@@ -83,4 +83,32 @@ Then, we can check q1' has a homomorphism with q2.
 Finally, see if q1' and q2 are equivalent. 
 
 
+## Query Containment & Minimization Continued (1/21/2021)
 
+So far, we've seen the queries with conjunctions (AND). However, in many times, we need to use OR for writing queries. 
+
+##### Example: queries involving multiple rules combined with OR 
+Movies that were produced in 1998 OR made more than $2,000
+```
+Q1(y) :- Movie(x,y,1998,z).
+Q1(y) :- Movie(x,y,z,t), t>2000.
+```
+-- Containment checking for Union of Conjunctive Queries (UCQ)is NP-complete.
+
+### Is SQL sufficient? 
+#### Recursive SQL
+As an alternative to alleviate the limitation of SQL that recursive queries can not be expressed, Common Table Expression (CTE) was invented in MySQL. 
+
+##### CTE: Relation variable within the scope of a single query. 
+Common Table Expression (CTE) is similar to CREATE VIEW.
+
+1. State the base case. 
+2. Express how recursion is used based on the previous steps.
+```sql
+with cte (col1, col2) as (
+                          select 1, 2
+                          union all 
+                          select 3, 4
+                          )
+select col1, col2 from cte;
+```
