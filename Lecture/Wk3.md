@@ -151,3 +151,6 @@ DBMS managers pose a restriction in data schema to ensure the integrity of datab
 
 #### Challenges in Designing Constraints in Scalable Data 
 - Difficult to check and guarantee the satifiability of the constraints as the number of edge cases grows as database scales up.
+
+### Functional Dependency as an effective constraint type
+- Basis of other DB schema constraints
