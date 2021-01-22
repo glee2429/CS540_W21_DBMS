@@ -154,3 +154,7 @@ DBMS managers pose a restriction in data schema to ensure the integrity of datab
 
 ### Functional Dependency as an effective constraint type
 - Basis of other DB schema constraints
+- Given a set of attributes X and Y in relation R, a functional dependency X->Y indicates that *every* tuple in R that has the same value of X should have the exactly corresponding value in Y. 
+#### Keys
+A key in R is a set of attributes of R that functionally determines *all* attributes in R. In other words, a key is a unique identifier that detmines values of other attributes. 
+* Superkey: a set of attributes that contains a key. Keys are subsets of superkey. 
