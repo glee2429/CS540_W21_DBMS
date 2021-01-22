@@ -101,7 +101,7 @@ As an alternative to alleviate the limitation of SQL that recursive queries can 
 
 ##### CTE: Relation variable within the scope of a single query. 
 Common Table Expression (CTE) is similar to CREATE VIEW.
-
+* Caveat: CTE is only used in MySQL. VIEW is more widely used. 
 1. State the base case. 
 2. Express how recursion is used based on the previous steps.
 ```sql
@@ -121,4 +121,26 @@ select b, d
   from cte1 join cte2
   where cte1.a = cte2.c;
  ```
-* Caveat: CTE is only used in MySQL. VIEW is more widely used. 
+Example 1
+```sql
+with recursive cte (n) as (
+                          select 1
+                          union all 
+                          select n+1 from cte where n < 5
+                          )
+select * from cte;
+```
+- Base case (base query): select 1
+- Recursion step: select n+1 from cte
+
+Example 2: use *Employee(id, name, manager_id)* to produce the organizational chart of the management chain.
+```sql
+with recursive employee_paths (id, name, path) as (
+                                                  select id, name, cast(id as CHAR(200))
+                                                  from employees where manager_id is null
+                                                  union all 
+                                                  select e.id, e.name, concat(ep.path, ',', e.id)
+                                                  from employee_paths as ep 
+                                                  join employees as e on ep.id = e.manager_id
+                                                  )
+select * from employee_paths order by path;
