@@ -112,3 +112,13 @@ with cte (col1, col2) as (
                           )
 select col1, col2 from cte;
 ```
+
+```sql
+with 
+  cte1 as (select a, b from table1),
+  cte2 as (select c, d from table2)
+select b, d
+  from cte1 join cte2
+  where cte1.a = cte2.c;
+ ```
+* Caveat: CTE is only used in MySQL. VIEW is more widely used. 
