@@ -147,5 +147,5 @@ select * from employee_paths order by path;
 ```
 
 ## Constraints in DB Schema
-DBMS managers pose a restriction in data schema to ensure the integrity of databases. For example, SSN column only contains numerical values and people with the same ssn have the same name. 
+DBMS managers pose a restriction in data schema to ensure the integrity of databases. For example, SSN column only contains numerical values and people with the same ssn have the same name. Additionally, constraints are used to express rules, or common sense, and restrictions for inference. 
 
