@@ -144,3 +144,8 @@ with recursive employee_paths (id, name, path) as (
                                                   join employees as e on ep.id = e.manager_id
                                                   )
 select * from employee_paths order by path;
+```
+
+## Constraints in DB Schema
+DBMS managers pose a restriction in data schema to ensure the integrity of databases. For example, SSN column only contains numerical values and people with the same ssn have the same name. 
+
