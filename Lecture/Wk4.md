@@ -66,3 +66,49 @@ For example, we decompose a relation, Emp(ssn, name, address) into smaller chunk
 #### Benefits of Normalization (=Decomposition) 
 1. We can avoid update/deletion/insertion anomaly.
 2. We can remove redundancy in the data table. 
+
+
+### Normalization Types 
+- Boyce-Codd Normalization Form (BCNF)
+- 3 Normal Form 
+
+#### I. BCNF 
+
+Given a relation R, R is in BCNF if and only if: for each non-trivial FD: X->Y, X is a superkey of R. In other words, *every attribute in the relation is determined only by superkey.*
+
+- Check the LHS of FD and see if it's candidate key for a relation. 
+- If you don't have FD in a decomposed relation, it's already in BCNF. 
+
+##### How to make BCNF? 
+
+1. Find the closure of FDs in R. 
+2. Find the *keys* for R. 
+3. Pick a FD: A->B that violates the BCNF condition, A must be a superkey, in R. Then, select the largest possible B. 
+4. Break down R into R1 and R2. R1 will have other attributes and A, and R2 will have A and B.
+5. Repeat this process until there is no BCNF left out. 
+
+```
+Emp2(ssn, name, street, city, state, zip) 
+FD_1: ssn -> name
+FD_2: zip -> state
+
+Key: {ssn, zip, state, zip}
+
+FD_1 violated BCNF condition. Therefore, let's decompose Emp2!
+Emp21(ssn,name)
+Emp-addr(ssn,street,city,state,zip)
+
+
+FD_2 violated BCNF condition in Emp-addr. Therefore, let's decompose Emp-addr. 
+Emp21(ssn,name)
+Emp-addr(ssn,street,city,zip) 
+-- ssn and zip are in LHS that determine name and state, and street and city are standalone. So we should include street and city to keys.
+Location(zip,state)
+```
+
+###### In this process, we can pick different functional dependencies, so there's no set order for picking FD to check the violation of BCNF condition. 
+
+#### II. 3NF
+
+
+
