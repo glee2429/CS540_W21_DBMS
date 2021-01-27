@@ -72,7 +72,7 @@ For example, we decompose a relation, Emp(ssn, name, address) into smaller chunk
 - Boyce-Codd Normalization Form (BCNF)
 - 3 Normal Form 
 
-#### I. BCNF 
+### I. BCNF 
 
 Given a relation R, R is in BCNF if and only if: for each non-trivial FD: X->Y, X is a superkey of R. In other words, *every attribute in the relation is determined only by superkey.*
 
@@ -115,11 +115,12 @@ So far, we've seen the benefits of decomposition and how to make one. However, t
 1. Losing information -- when we recover the original relation from decomposed relations by joining them, we might get some bogus tuple(s).
 2. Losing dependency 
 
+#### Caveats 
 * BCNF decomposition is **information lossless**, since JOIN does not produce any bogus tuples. This is primarily due to the join attribute is a key.
 * However, BCNF is *NOT* dependency preserving. A decomposed relation that contains no functional dependcy is also considered BCNF, so it fails to preserve FDs.
 
 
-#### II. 3NF
+### II. 3NF
 
 
 
