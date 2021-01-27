@@ -57,10 +57,12 @@ Finally, apply union on FD_4 and FD_5, so we get FD_6: title, year, actor -> cos
 - It prevents "anomalies" by enforcing functional depency and ensuring updated values do not violate the integrity constraints. 
 - Consistency check of data schema can be simplified by changing schema!
 
-### Normalization (=Data Schema Decomposition)
+### Normalization(=Data Schema Decomposition)
 
 Basically, we change the structure of a relation to smaller relations so that we don't have to check functional depencneis. 
 
 For example, we decompose a relation, Emp(ssn, name, address) into smaller chunks, Emp-name(ssn,name) and Emp-addr(ssn,address).
 
-
+#### Benefits of Normalization (=Decomposition) 
+1. We can avoid update/deletion/insertion anomaly.
+2. We can remove redundancy in the data table. 
