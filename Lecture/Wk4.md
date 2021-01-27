@@ -108,6 +108,17 @@ Location(zip,state)
 
 ###### In this process, we can pick different functional dependencies, so there's no set order for picking FD to check the violation of BCNF condition. 
 
+So far, we've seen the benefits of decomposition and how to make one. However, there's a limitation in BCNF normalization. 
+
+##### Limitations of Normalization 
+
+1. Losing information -- when we recover the original relation from decomposed relations by joining them, we might get some bogus tuple(s).
+2. Losing dependency 
+
+* BCNF decomposition is **information lossless**, since JOIN does not produce any bogus tuples. This is primarily due to the join attribute is a key.
+* However, BCNF is *NOT* dependency preserving. A decomposed relation that contains no functional dependcy is also considered BCNF, so it fails to preserve FDs.
+
+
 #### II. 3NF
 
 
