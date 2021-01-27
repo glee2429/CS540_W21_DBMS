@@ -112,15 +112,34 @@ So far, we've seen the benefits of decomposition and how to make one. However, t
 
 ##### Limitations of Normalization 
 
-1. Losing information -- when we recover the original relation from decomposed relations by joining them, we might get some bogus tuple(s).
+1. Losing information -- when we recover the original relation from decomposed relations by joining them, we might get some bogus tuple(s). To prevent information loss, we must ensure that the join attributes are keys in at least one relation.
 2. Losing dependency 
 
 #### Caveats 
-* BCNF decomposition is **information lossless**, since JOIN does not produce any bogus tuples. This is primarily due to the join attribute is a key.
-* However, BCNF is *NOT* dependency preserving. A decomposed relation that contains no functional dependcy is also considered BCNF, so it fails to preserve FDs.
+* BCNF decomposition is **information lossless**, since JOIN does not produce any bogus tuples. This is primarily due to the join attribute is a key. In BCNF, we decompose the original relation into smaller ones, one of which is a relation that contains the LHS key of a FD and the other containing the key and other attributes.
+* However, BCNF is *NOT* dependency preserving. A decomposed relation that contains no functional dependency is also considered BCNF, so it fails to preserve FDs. Intuitively, it makes sense. By transforming a relation to BCNF, we might erase functional depedencies. In other words, given a FD: A->B, if normalization puts A and B in different relations, it is not dependency preserving. 
+
 
 
 ### II. 3NF
 
+3NF is *lossless* and *dependency-preserving* for the sake of consistency. 3NF is not as aggressive as BCNF.
+
+#### Third-Normal Form Condition: 
+1. Given FD: X->Y, X is a superkey.
+OR
+2. Y is a *part* of a key. 
+
+3NF is basically a superset(larger set) of BCNF. 
+
+``` 
+Emp(ssn, name, address)
+Key is {name, address}
+
+FD_1: ssn -> name
+FD_2: address, name -> ssn 
+
+Emp is 3NF, but not BCNF because "name" is a part of a key.
+```
 
 
