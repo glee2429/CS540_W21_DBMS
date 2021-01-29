@@ -35,7 +35,15 @@ Lowest layer of DBMS software that manages space on disk. This level is called u
 
 * A request for a sequence of pages must be satisfied by allocating the pages sequentially on disk. 
 
-###### Buffer Management 
+###### Buffer Management (Buffer Pool)
 
 - Data must be in RAM for DMBS to operate on it. 
 - Important question to consider: *what if a buffer is already full?*
+- Buffer pool is useful for putting things there and fetching information by relying on previously done operations.
+
+Buffer Replacement Policy 
+
+- Least-Recently-Used (LRU)
+- Most-Recently-Used (MRU) 
+
+These are dependent on user behavior. For example, a sequential flooding happens when repeated sequential scans occurs with LRU. 
