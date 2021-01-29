@@ -128,7 +128,7 @@ So far, we've seen the benefits of decomposition and how to make one. However, t
 #### Third-Normal Form Condition: 
 1. Given FD: X->Y, X is a superkey.
 OR
-2. Y is a *part* of a key. 
+2. Y is a *part* of a key. In other words, Y is one of the attributes in a key for R. 
 
 3NF is basically a superset(larger set) of BCNF. 
 
@@ -141,5 +141,19 @@ FD_2: address, name -> ssn
 
 Emp is 3NF, but not BCNF because "name" is a part of a key.
 ```
+
+---------------
+## Denormalization 
+
+There are two types of situation to make a case for denormalization. 
+
+### Online Analytical Processing (OLAP)
+- Analytical queries (mostly for pulling data and not much need for normalization)
+- Model training 
+- *No write* 
+
+### Online Transaction Processing (OLTP)
+- High frequency of updates (inserting, write) 
+- Useful to normalize 
 
 
