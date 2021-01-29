@@ -156,9 +156,11 @@ Considering these drawbacks, there are two types of situation to make a case for
 - Analytical queries (mostly for pulling data and not much need for normalization)
 - Model training 
 - *No write* 
+- ** Normalization is NOT useful for OLAP **
 
 ### Online Transaction Processing (OLTP)
 - High frequency of updates (inserting, write) 
 - Useful to normalize 
+- ** Normalization is useful for OLTP **
 
 
