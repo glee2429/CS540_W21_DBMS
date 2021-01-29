@@ -47,3 +47,10 @@ Buffer Replacement Policy
 - Most-Recently-Used (MRU) 
 
 These are dependent on user behavior. For example, a sequential flooding happens when repeated sequential scans occurs with LRU. 
+
+#### Recrod Formats
+- Reducing *time* is much more important than reducing *space*. 
+
+Types: 
+1. Un-spanned: each record belongs to only one block (fixed sized)
+2. Spanned: records may be stored across multiple blocks. 
