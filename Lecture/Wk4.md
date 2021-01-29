@@ -145,7 +145,12 @@ Emp is 3NF, but not BCNF because "name" is a part of a key.
 ---------------
 ## Denormalization 
 
-There are two types of situation to make a case for denormalization. 
+Generally, normalization improves data integrity, but there are some limitations. 
+1. Slow performance: queries on normalized schemas need more JOINs. 
+2. Low readability: normalized schemas are often hard to understand. 
+
+
+Considering these drawbacks, there are two types of situation to make a case for denormalization. 
 
 ### Online Analytical Processing (OLAP)
 - Analytical queries (mostly for pulling data and not much need for normalization)
