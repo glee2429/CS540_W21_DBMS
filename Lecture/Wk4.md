@@ -134,12 +134,12 @@ OR
 
 ``` 
 Emp(ssn, name, address)
-Key is {ssn, address}
 
 FD_1: ssn -> name
 FD_2: address, name -> ssn 
+Key is {ssn, address}
 
-Emp is 3NF, but not BCNF because "name" is a part of a key.
+Emp is 3NF since {address,name} is a super-key, but not BCNF because it violates FD_1.
 ```
 
 ---------------
