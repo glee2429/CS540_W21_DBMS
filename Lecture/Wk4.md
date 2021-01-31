@@ -134,7 +134,7 @@ OR
 
 ``` 
 Emp(ssn, name, address)
-Key is {name, address}
+Key is {ssn, address}
 
 FD_1: ssn -> name
 FD_2: address, name -> ssn 
