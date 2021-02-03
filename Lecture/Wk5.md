@@ -147,4 +147,26 @@ With a duplicate search key, it might be impossible to point a tuple that is not
 
 **Therefore, we must point to the LOWEST NEW SEARCH KEY in every block.**
 
-##### Caveats: when data records are unsorted (unclustered), it is impossible to use sparse(blockwise) indexing since it's impossible to know what's in the block. Therefore, unclustered should be only DENSE!
+##### Caveats: when data records are unsorted (unclustered), it is impossible to use sparse(blockwise) indexing since we don't know what's in the block. Therefore, unclustered should be only DENSE!
+
+#### Indexing Structures 
+1. Tree Indexing
+2. Hash Indexing 
+
+We'd like to keep the index file in the main memory. However, when the data file is large enough, it's likely that we might need to keep the index file separately. Then, we can fix this problem by storing the index file in another index file. 
+
+##### B+ Tree (Index of Index)
+- Degree of the tree: f
+- Each node except for the root stores [d, 2d] keys. (minimum 50% occupancy). 
+- The pointers in the leave nodes point to the data records. 
+- The number of pointers = 1 + the number of keys -- because we use the extra pointer to refer to a neighboring node.  An advantage of connecting neighboring nodes is that it's easier to pull range queries in the leaf level.
+
+###### How to choose the "d" in B+ tree?
+- "d" indicates the range of leaf nodes.
+- small d -> depp tree, big d -> shallow tree
+- Goal: each node should fit into a block.
+- Fanout: the number of pointers coming out of each node
+
+
+###### Insertion: make sure to keep the tree structured "balanced"
+- Pick a leaf node w/ corresponding order; if the node has more than 2d keys (each node can have 2d at most), split it into two nodes and insert the extra node in the parent. 
