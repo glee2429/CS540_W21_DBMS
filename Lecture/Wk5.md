@@ -100,13 +100,51 @@ Select * From Shells Where price > 2 AND price < 10;
 
 #### Cost comparison (I/O Access) of heap vs. sorted files 
 The dominant factor in time complexity is I/O, so we can only consider how many I/O required for each operation.
-##### Search
+#### Search
 - O(N) for heap file (sequential scan)
 - O(LogN) for sorted file (binary search)
-##### Insertion/Update
+#### Insertion/Update
 - O(1) in heap (we can just go to the end of the file)
 - O(LogN + N) -- you might have to shift things around. 
-##### Deletion:
+#### Deletion:
 We need to find the item and delete it. 
 - O(1) for heap: once you find the file, it only takes O(1).
 - O(LogN) for sorted file: deletion takes search 
+
+
+#### Summary: 
+- Heap files are great for insertion. You only need O(1), but it's bad for search, as it requires O(n).
+- Sorted files are great for search, but it's inefficient for insertion and update. 
+- Therefore, what would be a middle ground that is great for both search and insertion? 
+- Suggested solution: **INDEXING**
+
+## Indexing 
+Index is a key used for looking up data. 
+- Search key: it doesn't have to be the (primary) key. 
+
+### Two layers 
+- Data file: storing the table data
+- Index file: storing the index data structure, which is smaller than the data file. (e.g., (k,r) where k is the search key, and r is the point to a record, record it.)
+
+### Index Categorization - Two Types 
+1. Cluster -- data file is sorted
+2. Unclustered -- data file is not sorted
+
+Index files are sorted based on the search key. If the data file has the same order as the index file, sorted based on the *search key*, we call it **clustered**. Otherwise, we call indexing **unclustered**.
+
+Let's say we have a datafile sorted based on id. There is only one index that is assigned to the index of your choice. 
+
+1. Dense -- every record has a pointer for every record in the data file and faster to look up but takes more space.
+2. Sparse -- only a single pointer per block/page is slower since you have to go through every single block to look up a value. 
+
+1. Primary -- if the search key is the primary key or key of a relation, then it's called primary index.
+2. Secondary -- Otherwise. 
+
+#### Problem: when there's a duplicate search key 
+We only keep track of the *first* record with a specific search key. (Clustered & dense).
+
+With a duplicate search key, it might be impossible to point a tuple that is not at the beginning of the block. 
+
+**Therefore, we must point to the LOWEST NEW SEARCH KEY in every block.**
+
+##### Caveats: when data records are unsorted (unclustered), it is impossible to use sparse(blockwise) indexing since it's impossible to know what's in the block. Therefore, unclustered should be only DENSE!
