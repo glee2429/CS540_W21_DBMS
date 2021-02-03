@@ -48,9 +48,65 @@ Buffer Replacement Policy
 
 These are dependent on user behavior. For example, a sequential flooding happens when repeated sequential scans occurs with LRU. 
 
-#### Recrod Formats
+#### Record Formats
 - Reducing *time* is much more important than reducing *space*. 
 
 Types: 
 1. Un-spanned: each record belongs to only one block (fixed sized)
 2. Spanned: records may be stored across multiple blocks. 
+
+### Files of Records 
+Page or block is fine with I/O operations, but higher levels of DBMS operate on *records&, and *files of records*.
+
+#### Files of Records 
+A collection of pages, each containing a collection of records. 
+- Insert/delete/modify record
+- Read a particular record (specified using *record id*)
+- Scan all records, possibly with some conditions on the records to be retrieved.
+
+#### System Catalog
+##### For each iteration, 
+- Name, file name, file structure (e.g., heap file)
+- Attribute name and type for each attribute
+- Index name for each index 
+- Integrity constrinats 
+
+##### For each view: 
+- View name and definition 
+
+**Catalogs are stored as relations**
+
+### Access Paths
+The methods that RDBMS uses to retrieve data. 
+- Attribute values -> Tuples 
+There are two types of queries 
+1. Point query over *Coffee(cname, producer)* 
+```
+Select * From coffee Where cname = 'Costa';
+```
+2. Range query over *Shell(sname, cname, price)*
+```
+Select * From Shells Where price > 2 AND price < 10;
+```
+
+### Types of Access Pathes
+#### 1. Heap files
+- No order in the file
+- New blocks are inserted at the end of the file
+
+#### 2. Sorted files 
+- Ordered based on some key
+- Physically contiguouos or using links 
+
+#### Cost comparison (I/O Access) of heap vs. sorted files 
+The dominant factor in time complexity is I/O, so we can only consider how many I/O required for each operation.
+##### Search
+- O(N) for heap file (sequential scan)
+- O(LogN) for sorted file (binary search)
+##### Insertion/Update
+- O(1) in heap (we can just go to the end of the file)
+- O(LogN + N) -- you might have to shift things around. 
+##### Deletion:
+We need to find the item and delete it. 
+- O(1) for heap: once you find the file, it only takes O(1).
+- O(LogN) for sorted file: deletion takes search 
