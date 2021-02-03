@@ -170,3 +170,7 @@ We'd like to keep the index file in the main memory. However, when the data file
 
 ###### Insertion: make sure to keep the tree structured "balanced"
 - Pick a leaf node w/ corresponding order; if the node has more than 2d keys (each node can have 2d at most), split it into two nodes and insert the extra node in the parent. 
+
+###### Deletion: if necessary, borrow from siblings and update the parent so that points go into the correct direction 
+- "Rotation" as in borrowing from a neighbor and update the parent. 
+- However, when both neighbors don't have enough key, then merge.
