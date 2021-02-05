@@ -155,7 +155,7 @@ With a duplicate search key, it might be impossible to point a tuple that is not
 
 We'd like to keep the index file in the main memory. However, when the data file is large enough, it's likely that we might need to keep the index file separately. Then, we can fix this problem by storing the index file in another index file. 
 
-##### B+ Tree (Index of Index)
+### B+ Tree (Index of Index)
 - Degree of the tree: f
 - Each node except for the root stores [d, 2d] keys. (minimum 50% occupancy). 
 - The pointers in the leave nodes point to the data records. 
@@ -174,3 +174,8 @@ We'd like to keep the index file in the main memory. However, when the data file
 ###### Deletion: if necessary, borrow from siblings and update the parent so that points go into the correct direction 
 - "Rotation" as in borrowing from a neighbor and update the parent. 
 - However, when both neighbors don't have enough key, then merge.
+
+### Hash Indexing 
+Tree structure requires O(logN) I/O costs. Hash Index is stored in an external memory. Given 'n' available blocks, a hash function f(j) maps a key k to {0,...,n-1}. 
+
+
